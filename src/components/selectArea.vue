@@ -10,8 +10,8 @@
 			<el-table-column prop="location" label="场地位置" width="" align="center">
 			</el-table-column>
 			<el-table-column prop="image" label="场地图片" width="" align="center">
-        <template   slot-scope="scope">
-          <img :src="url.image" style="width: 100px;" />
+        <template  slot-scope="scope">
+          <img src="../picture/timg.jpg" style="width: 80px;height: 50px;" />
         </template>
 			</el-table-column>
 			<el-table-column prop="price" label="场地单价/小时" width="" align="center">
@@ -118,25 +118,29 @@
 				formData.append("file",this.img);
 				addVenue(formData).then(res=>{
           this.dialogFormVisible = false;
-				}).catch(err=>{
+          getVenueList().then(response=>{
+            this.tableList = response.data.data.list;
+            console.log(this.tableList);
+            /*   console.log("初始化的"+this.Currenttotal+"条数");
+                   console.log("初始化的页数"+response.data.content.data.pageNum)*/
+          });
+
+        }).catch(err=>{
           alert("场地添加失败");
 				})
 
 
 			},
 
-			// handleCurrentChange(val) {
-			//   console.log(`当前页: ${val}`);
-			//   getAll({"pageNum":val}).then(response=>{
-			//     this.tableList = response.data.content.data.list;
-			//     this.Currenttotal =response.data.content.data.total;
-			//     console.log("加载时本页总数"+this.Currenttotal);
-			//     console.log(response)
-			//   });
-			// },
 			handleDelete( index,row) {
         deleteVenue({"venueId":row.id}).then(response=>{
           alert("删除成功")
+          getVenueList().then(response=>{
+            this.tableList = response.data.data.list;
+            console.log(this.tableList);
+            /*   console.log("初始化的"+this.Currenttotal+"条数");
+                   console.log("初始化的页数"+response.data.content.data.pageNum)*/
+          });
 
         });
 			}

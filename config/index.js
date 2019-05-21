@@ -14,7 +14,6 @@ module.exports = {
     proxyTable: {
       //设置代理解决跨域问题
       "/test":{
-
         target:"http://192.168.163.1:8080",
        // target:"http://192.168.43.122:8080",
         secure:false,

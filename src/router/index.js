@@ -73,6 +73,17 @@ export default new Router({
 				//    	替换appmain里的router-view
 				component: () =>import("@/components/userUpdate")
       },
+      {
+      	path: 'homeImage',
+				//    	替换appmain里的router-view
+				component: () =>import("@/components/homeImage")
+      },
+      {
+      	path: 'ManagerMessage',
+				//    	替换appmain里的router-view
+				component: () =>import("@/components/ManagerMessage")
+      },
+
       ]
     }
 

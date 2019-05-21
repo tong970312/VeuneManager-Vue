@@ -1,21 +1,29 @@
 <template>
 	<div>
 		<el-table :data="tableList" >
-			<el-table-column prop="id" label="场地编号" width="" align="center">
+			<el-table-column prop="id" label="场地编号" width="80" align="center">
 			</el-table-column>
-			<el-table-column prop="areaname" label="场地名称" width="" align="center">
+			<el-table-column prop="areaname" label="场地名称" width="100" align="center">
 			</el-table-column>
 			<el-table-column prop="detail" label="场地详情" width="" align="center">
 			</el-table-column>
 			<el-table-column prop="location" label="场地位置" width="" align="center">
 			</el-table-column>
+      <el-table-column prop="status" label="当前状态" width="80" align="center">
+			</el-table-column>
+      <!--<el-table-column prop="startTime" label="使用开始时间" width="" align="center">-->
+      <!--</el-table-column>-->
+      <el-table-column prop="endtime" label="使用结束时间" width="" align="center">
+			</el-table-column>
+      <el-table-column prop="price" label="场地单价/小时" width="" align="center">
+      </el-table-column>
+
 			<el-table-column prop="image" label="场地图片" width="" align="center">
 				<template slot-scope="scope">
-					<img src="@/picture/login.jpg" alt="" style="width: 100px;" />
+					<img src="@/picture/timg.jpg" alt="" style="width: 100px;height: 60px" />
 				</template>
 			</el-table-column>
-			<el-table-column prop="price" label="场地单价/小时" width="" align="center">
-			</el-table-column>
+
 			<el-table-column label="操作" align="center">
           <template slot-scope="scope">
             <el-button
@@ -46,16 +54,24 @@
         <el-form-item label="场地单价/小时" :label-width="formLabelWidth">
           <el-input v-model="formData.price" auto-complete="off" readonly></el-input>
         </el-form-item>
-        <el-form-item label="使用时场" :label-width="formLabelWidth">
-          <el-input v-model="formData.useTime" auto-complete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="使用时间" :label-width="formLabelWidth">
+        <!--<el-form-item label="使用时场" :label-width="formLabelWidth">-->
+          <!--<el-input v-model="formData.useTime" auto-complete="off"></el-input>-->
+        <!--</el-form-item>-->
+        <el-form-item label="选择使用时间" :label-width="formLabelWidth">
           <el-date-picker
             v-model="formData.startTime"
             type="datetime"
             placeholder="选择日期时间">
           </el-date-picker>
         </el-form-item>
+         <el-form-item label="选择结束时间" :label-width="formLabelWidth">
+          <el-date-picker
+            v-model="formData.endTime"
+            type="datetime"
+            placeholder="选择日期时间">
+          </el-date-picker>
+        </el-form-item>
+
 
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -86,15 +102,19 @@ export default {
 				currentPage: 1,
 				pageSize: 5,
         dialogFormVisible: false,
+        currentTime:'',
         tableList: [{
-					id: 1,
+					id: 5,
 					areaname: "场地1",
 					detail: "双鱼",
 					location: "A区1号",
 					image: "111",
 					price: "10.00",
-					status: "存在",
-					ifdelete: "否"
+					status: "",
+					ifdelete: "否",
+					startTime: "空",
+					endtime: "空",
+
 				}],
 
 				formLabelWidth: '120px',
@@ -105,6 +125,7 @@ export default {
 					price:'',
           useTime:'',
           startTime:'',
+          endTime:''
 				},
 				imageUrl: '',
 				img:""
@@ -112,25 +133,35 @@ export default {
 		},
 
 		methods: {
-
 			submit(formData){
-        console.log(formData);
-        var addOrderDTO={"venueId":formData.id,"useTime":formData.useTime,"startTime":formData.startTime}
-        console.log(addOrderDTO)
+        var addOrderDTO={"venueId":formData.id,"startTime":formData.startTime,"endTime":formData.endTime}
         addOrder(addOrderDTO).then(response=>{
+          this.dialogFormVisible = false
           alert(response.data.msg)
         })
 
 				},
         handleEdit(index, row) {
-          this.formData = row;
-          this.dialogFormVisible = true;
+
+			  this.formData = row;
+			//  this.formData.startTime = row.endtime;
+			  this.dialogFormVisible = true;
+          // if (s==="已被占用") {
+          //   this.dialogFormVisible = false;
+          // }else{
+          //   this.formData = row;
+          //   this.dialogFormVisible = true;
+          // }
+
         },
 
-			},
+
+},
       created() {
         getVenueList().then(response=>{
+         console.log(response.data.data.list)
           this.tableList = response.data.data.list
+
         })
       },
 
@@ -147,7 +178,9 @@ export default {
 
 
 
-	}
+
+}
+
 </script>
 
 <style>

@@ -7,6 +7,21 @@ export function getMessage(params) {
         method:'get',
       })
 }
+export function deleteMsg(params) {
+      return axios({
+        url:'/message/deleteMsg',
+        params:params,
+        method:'post',
+      })
+}
+
+// export function deleteMsg(params) {
+//       return axios({
+//         url:'/message/deleteMsg',
+//         params:params,
+//         method:'post',
+//       })
+// }
 export function addVenue(params) {
   return axios({
     url: '/Venue/addVenue',
@@ -26,8 +41,20 @@ export function getAdmin() {
     url: 'account/getAdmin',
     method: 'get',
   })
-
 }
+export function user_exit() {
+  return axios({
+    url: 'account/user_exit',
+    method: 'get',
+  })
+}
+export function admin_exit() {
+  return axios({
+    url: 'account/admin_exit',
+    method: 'get',
+  })
+}
+
 export function update(params) {
   return axios({
     url: 'account/update',
@@ -49,6 +76,21 @@ export function selectOrder() {
     method: 'get',
   })
 }
+export function deleteOrder(params) {
+  return axios({
+    url: 'order/deleteOrder',
+    method: 'post',
+    data:params
+  })
+}
+export function payOrder(params) {
+  return axios({
+    url: 'order/payOrder',
+    method: 'post',
+    data:params
+  })
+}
+
 export function selectOrderPay() {
   return axios({
     url: 'order/selectOrderPay',

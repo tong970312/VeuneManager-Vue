@@ -1,11 +1,11 @@
 <template>
 	<div>
-		<el-table :data="tableData" style="width: 100%">
-			<el-table-column prop="adminname" label="发布人" width="">
+		<el-table :data="tableData" style="width: 100%;" align="center">
+			<el-table-column prop="adminname" label="发布人" width="300">
 			</el-table-column>
-			<el-table-column prop="noticemsg" label="信息内容" width="">
+			<el-table-column prop="noticemsg" label="信息内容" width="300">
 			</el-table-column>
-			<el-table-column prop="createtime" label="发布时间">
+			<el-table-column prop="createtime" label="发布时间" width="300">
 			</el-table-column>
 		</el-table>
     <div id="page" style="position: absolute;left: 600px;bottom: 100px">
